@@ -28,8 +28,8 @@ def main(driver):
     #elements = elements.text.strip('\n')
     name = elements.find_element_by_class_name('item-description-title-link').text
     price = elements.find_element_by_class_name('price').text
-    metro = elements.find_element_by_class_name('data').text.split('\n')
-    date = metro[1].split(' ')
+    metro = elements.find_element_by_class_name('data').text.split('\n')# Из строки в массив 
+    date = metro[1].split(' ') #разбиение даты на числовую и строковые части
     metro = metro[0]
     href = elements.find_element_by_class_name('item-description-title-link').get_attribute('href')
 
@@ -41,10 +41,10 @@ def main(driver):
 
     #image_url = driver.find_element_by_class_name('gallery-img-cover').get_attribute('style')[25:-3]
     #description = driver.find_element_by_class_name('item-description-text') #получение картинки работает через раз, надо разбираться почему. !!!TODO!!!
-    description = driver.find_element_by_xpath("//div[contains(@class, 'item-description-text')]/p").text
+    description = driver.find_element_by_xpath("//div[contains(@class, 'item-description-text')]/p").text #используется xpath, так как авито намудили что-то с пидуманными параметрами
 
     print('{} | {}\n{}\n{}\n{}'.format(name, price, metro, date, description))
-    if ctypes.windll.user32.MessageBoxW(0, '{} | {}\n{}\n{}\n{}'.format(name, price, metro, '{} {} {}'.format(date[0], date[1], date[2]), description), 'Парсер авито', 1):
+    if ctypes.windll.user32.MessageBoxW(0, '{} | {}\n{}\n{}\n{}'.format(name, price, metro, '{} {} {}'.format(date[0], date[1], date[2]), description), 'Парсер авито', 1): #вернет тру и нажатии на ОК
         clipboard.copy(href)
 
     driver.close()
